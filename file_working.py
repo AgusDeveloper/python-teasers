@@ -1,6 +1,5 @@
-
-
 from datetime import datetime, date
+from pathlib import Path
 
 def read_from_file(filename):
   """Reads content from a file and returns it."""
@@ -31,6 +30,11 @@ def copy_file(source_filename, destination_filename):
     dest_file.write(content)
   print(f"Copied content from '{source_filename}' to '{destination_filename}'.")
 
+def path_components(path_str):
+  """Returns the components of a file path as a list."""
+  path = Path(path_str)
+  return list(path.parts)
+
 dict_sum = {
   "description": "Totals for the file",
   "sum_of_amounts": 0.0,
@@ -59,6 +63,7 @@ def main():
       l - read lines from the file
       b - read a binary file
       c - copy a file
+      p - show path components
       q - exit \n
     > """
     action = input(MENU).strip().lower()
@@ -141,6 +146,43 @@ def main():
         print(f"The file '{source_filename}' does not exist.")
       except Exception as e:
         print(f"An error occurred while copying the file: {e}")
+
+    elif action == 'p':
+      try:
+        path_str = input("Enter the file path: ")
+
+        base_dir = Path(__file__).resolve().parent 
+        path = base_dir / path_str
+        if not path.is_file():
+          print(f"'{path_str}' does not exist.")
+          return
+        else:
+          print(path.read_text(encoding="utf-8"))
+
+        print("\n",path_components.__doc__)
+        components = path_components(path_str)
+        print(f"Path components of '{path_str}':")
+        for component in components:
+          print(component)
+
+        #base_dir = Path.cwd()
+        # Join paths using the / operator
+        # This works on Windows, Mac, and Linux automatically
+        logs_dir = base_dir / "app_data" / "logs"
+        error_log = logs_dir / "errors.txt"
+
+        print(f"Base Directory: {base_dir}")
+        print(f"Full Log Path:  {error_log}")
+
+        # Define a path (it doesn't need to exist to be inspected)
+        print(f"Full Name: {path.name}")
+        print(f"Stem:      {path.stem}")
+        print(f"Suffix:    {path.suffix}")
+        print(f"Parent:    {path.parent}")
+
+
+      except Exception as e:
+        print(f"An error occurred while processing the path: {e}")
 
 if __name__ == "__main__":
   main()
