@@ -99,3 +99,11 @@ Requirements:
 The goal is not only to find the correct answer. It is to develop the habits of
 a strong Python programmer: careful reading, clear reasoning, experimentation,
 debugging, and continuous improvement.
+
+👤 Author
+
+Agustin Portillo
+
+💬 Inspiration
+
+"Programs must be written for people to read, and only incidentally for machines to execute." – Harold Abelson"
